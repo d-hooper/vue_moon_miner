@@ -11,6 +11,10 @@ const cheese = computed(() => AppState.cheese)
 const clickUpgrades = computed(() => AppState.clickUpgrades)
 const autoUpgrades = computed(() => AppState.autoUpgrades)
 
+// const upgradeMultiplier = computed(() => {
+
+// })
+
 function mine() {
   cheeseService.mine()
 }
@@ -35,7 +39,7 @@ function buyAutoUpgrade(upgrade) {
           <div class="text-center">
             <img @click="mine()" :src="moonImgUrl" alt="A picture of the moon" role="button" class="moon-img"
                  title="Click to increase cheese total!">
-            <p>{{ cheese }}</p>
+            <p class="fs-2">Cheese: {{ cheese }}</p>
           </div>
         </div>
       </div>

@@ -22,6 +22,9 @@ class CheeseService {
       Pop.toast("You don't have enough cheese to buy that")
       return
     }
+    AppState.cheese -= upgrade.price
+    upgrade.quantity++
+    upgrade.price = Math.round(upgrade.price * 1.2)
   }
 
 }
