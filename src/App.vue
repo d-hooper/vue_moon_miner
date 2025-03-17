@@ -11,9 +11,14 @@ const cheese = computed(() => AppState.cheese)
 const clickUpgrades = computed(() => AppState.clickUpgrades)
 const autoUpgrades = computed(() => AppState.autoUpgrades)
 
-// const upgradeMultiplier = computed(() => {
-
-// })
+const clickTotal = computed(() => {
+  let clickTotal = 0
+  clickUpgrades.value.forEach(upgrade => {
+    clickTotal += (upgrade.quantity * upgrade.multiplier)
+  })
+  console.log(clickTotal);
+  return clickTotal
+})
 
 function mine() {
   cheeseService.mine()
@@ -49,7 +54,8 @@ function buyAutoUpgrade(upgrade) {
         <div class="col-6">
           <div v-for="upgrade in clickUpgrades" :key="upgrade.id" class="fs-3 mb-2 d-flex justify-content-between">
             <div>
-              <button @click="buyClickUpgrade(upgrade)" class="btn border border-indigo rounded-pill fs-3" type="button" :title="'Buy ' + upgrade.name">
+              <button @click="buyClickUpgrade(upgrade)" class="btn border border-indigo rounded-pill fs-3" type="button"
+                      :title="'Buy ' + upgrade.name">
                 <span class="mdi mdi-cheese text-indigo">{{ upgrade.price }}</span>
               </button>
               <span>{{ upgrade.emoji }}</span>
@@ -58,12 +64,14 @@ function buyAutoUpgrade(upgrade) {
             <div class="d-block">
               <span class="me-1"> {{ upgrade.quantity }} owned</span>
             </div>
+            <span>{{ clickTotal }}</span>
           </div>
         </div>
         <div class="col-6">
           <div v-for="upgrade in autoUpgrades" :key="upgrade.id" class="fs-3 mb-2 d-flex justify-content-between">
             <div>
-              <button @click="buyAutoUpgrade(upgrade)" class="btn border border-indigo rounded-pill fs-3" type="button" :title="'Buy ' + upgrade.name">
+              <button @click="buyAutoUpgrade(upgrade)" class="btn border border-indigo rounded-pill fs-3" type="button"
+                      :title="'Buy ' + upgrade.name">
                 <span class="mdi mdi-cheese text-indigo">{{ upgrade.price }}</span>
               </button>
               <span>{{ upgrade.emoji }}</span>
