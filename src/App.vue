@@ -16,11 +16,24 @@ const clickUpgradeTotal = computed(() => {
   clickUpgrades.value.forEach(upgrade => {
     clickUpgradeTotal += (upgrade.quantity * upgrade.multiplier)
   })
-  console.log(clickUpgradeTotal);
   return clickUpgradeTotal
 })
 
+const autoUpgradeTotal = computed(() => {
+  let autoUpgradeTotal = 0
+  autoUpgrades.value.forEach(upgrade => {
+    autoUpgradeTotal += (upgrade.quantity * upgrade.multiplier)
+  })
+  return autoUpgradeTotal
+})
 
+function autoMine() {
+  AppState.cheese += autoUpgradeTotal.value
+}
+
+onMounted(() => {
+  setInterval(autoMine, 3000)
+})
 
 function mine() {
   cheeseService.mine(clickUpgradeTotal.value)
