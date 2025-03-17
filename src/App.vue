@@ -59,19 +59,19 @@ function buyAutoUpgrade(upgrade) {
           <div class="text-center">
             <img @click="mine()" :src="moonImgUrl" alt="A picture of the moon" role="button" class="moon-img"
                  title="Click to increase cheese total!">
-            <p class="fs-2">Cheese: {{ cheese }}</p>
+            <p class="fs-2 fw-bold text-light text-shadow">Cheese: {{ cheese }}</p>
           </div>
         </div>
       </div>
     </section>
     <section class="container">
-      <div class="row">
+      <div class="row bg-dark bg-opacity-50 shadow text-light fw-bold p-3 rounded-4">
         <div class="col-6">
           <div v-for="upgrade in clickUpgrades" :key="upgrade.id" class="fs-3 mb-2 d-flex justify-content-between">
             <div>
-              <button @click="buyClickUpgrade(upgrade)" class="btn border border-indigo rounded-pill fs-3" type="button"
-                      :title="'Buy ' + upgrade.name">
-                <span class="mdi mdi-cheese text-indigo">{{ upgrade.price }}</span>
+              <button @click="buyClickUpgrade(upgrade)" class="btn btn-outline-light rounded-pill fs-3" type="button"
+                      :title="'Buy ' + upgrade.name" :disabled="cheese < upgrade.price">
+                <span class="mdi mdi-cheese">{{ upgrade.price }}</span>
               </button>
               <span class="">+{{ upgrade.multiplier }} per click</span>
             </div>
@@ -84,15 +84,15 @@ function buyAutoUpgrade(upgrade) {
         <div class="col-6">
           <div v-for="upgrade in autoUpgrades" :key="upgrade.id" class="fs-3 mb-2 d-flex justify-content-between">
             <div>
-              <button @click="buyAutoUpgrade(upgrade)" class="btn border border-indigo rounded-pill fs-3" type="button"
-                      :title="'Buy ' + upgrade.name">
-                <span class="mdi mdi-cheese text-indigo">{{ upgrade.price }}</span>
+              <button @click="buyAutoUpgrade(upgrade)" class="btn btn-outline-light rounded-pill fs-3" type="button"
+                      :title="'Buy ' + upgrade.name" :disabled="cheese < upgrade.price">
+                <span class="mdi mdi-cheese">{{ upgrade.price }}</span>
               </button>
-              <span class="ms-1">+{{ upgrade.multiplier }} </span>
+              <span class="ms-1" title="Amount a single instance adds">+{{ upgrade.multiplier }} </span>
             </div>
             <div class="d-block">
-              <span class="me-1"> {{ upgrade.quantity + upgrade.emoji }}>></span>
-              <span class="me-1"> {{ upgrade.quantity * upgrade.multiplier }} / 3s</span>
+              <span class="me-1" title="Number owned"> {{ upgrade.quantity + upgrade.emoji }}>></span>
+              <span class="me-1" title="Total amount added every 3 seconds"> {{ upgrade.quantity * upgrade.multiplier }} / 3s</span>
             </div>
           </div>
 
@@ -109,7 +109,12 @@ function buyAutoUpgrade(upgrade) {
 @import "./assets/scss/main.scss";
 
 .moon-img {
-  filter: grayscale(15);
-  opacity: 50%;
+  filter: hue-rotate(30deg);
+  opacity: 90%;
 }
+
+.text-shadow {
+  text-shadow: 2px 2px 5px #000;
+}
+
 </style>
