@@ -13,14 +13,16 @@ export const AppState = reactive({
       name: 'Centaur',
       price: 5,
       quantity: 0,
-      multiplier: 1 
+      multiplier: 1,
+      emoji: '🏇'
     },
     {
       id: 2,
       name: 'Cheese Chariot',
       price: 50,
       quantity: 0,
-      multiplier: 1 
+      multiplier: 5,
+      emoji: '🛥️'
     },
   ],
   autoUpgrades: [
@@ -29,14 +31,16 @@ export const AppState = reactive({
       name: 'Boon from Olympus',
       price: 1000,
       quantity: 0,
-      multiplier: 1 
+      multiplier: 20,
+      emoji: '🎁' 
     },
     {
       id: 2,
       name: 'The Hands of Fate',
       price: 10000,
       quantity: 0,
-      multiplier: 1 
+      multiplier: 100,
+      emoji: '🤝'
     },
 
   ]
