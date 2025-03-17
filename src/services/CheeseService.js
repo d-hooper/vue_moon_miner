@@ -2,8 +2,8 @@ import { AppState } from "@/AppState.js"
 import { Pop } from "@/utils/Pop.js"
 
 class CheeseService {
-  mine() {
-    AppState.cheese++
+  mine(clickUpgradeTotal) {
+    AppState.cheese += (clickUpgradeTotal + 1)
   }
 
   buyClickUpgrade(upgrade) {

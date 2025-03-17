@@ -1,8 +1,8 @@
 <script setup>
 const moonImgUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Circle-front-color.png/640px-Circle-front-color.png'
 
-// eslint-disable-next-line no-unused-vars
-import { computed, ref } from 'vue';
+
+import { computed, onMounted } from 'vue';
 import { AppState } from './AppState.js';
 import { cheeseService } from './services/CheeseService.js';
 
@@ -11,17 +11,19 @@ const cheese = computed(() => AppState.cheese)
 const clickUpgrades = computed(() => AppState.clickUpgrades)
 const autoUpgrades = computed(() => AppState.autoUpgrades)
 
-const clickTotal = computed(() => {
-  let clickTotal = 0
+const clickUpgradeTotal = computed(() => {
+  let clickUpgradeTotal = 0
   clickUpgrades.value.forEach(upgrade => {
-    clickTotal += (upgrade.quantity * upgrade.multiplier)
+    clickUpgradeTotal += (upgrade.quantity * upgrade.multiplier)
   })
-  console.log(clickTotal);
-  return clickTotal
+  console.log(clickUpgradeTotal);
+  return clickUpgradeTotal
 })
 
+
+
 function mine() {
-  cheeseService.mine()
+  cheeseService.mine(clickUpgradeTotal.value)
 }
 
 function buyClickUpgrade(upgrade) {
@@ -58,13 +60,12 @@ function buyAutoUpgrade(upgrade) {
                       :title="'Buy ' + upgrade.name">
                 <span class="mdi mdi-cheese text-indigo">{{ upgrade.price }}</span>
               </button>
-              <span>{{ upgrade.emoji }}</span>
-              <span class="ms-1 mdi-plus-circle-outline">{{ upgrade.multiplier * upgrade.quantity }} per click</span>
+              <span class="">+{{ upgrade.multiplier }} per click</span>
             </div>
             <div class="d-block">
-              <span class="me-1"> {{ upgrade.quantity }} owned</span>
+              <span class="me-1" title="Number owned"> {{ upgrade.quantity + upgrade.emoji }}>></span>
+              <span class="ms-1" title="Total amount per click">{{ upgrade.multiplier * upgrade.quantity }}</span>
             </div>
-            <span>{{ clickTotal }}</span>
           </div>
         </div>
         <div class="col-6">
@@ -74,11 +75,11 @@ function buyAutoUpgrade(upgrade) {
                       :title="'Buy ' + upgrade.name">
                 <span class="mdi mdi-cheese text-indigo">{{ upgrade.price }}</span>
               </button>
-              <span>{{ upgrade.emoji }}</span>
-              <span class="ms-1 mdi-plus-circle-outline">{{ upgrade.multiplier * upgrade.quantity }} / 3s</span>
+              <span class="ms-1">+{{ upgrade.multiplier }} </span>
             </div>
             <div class="d-block">
-              <span class="me-1"> {{ upgrade.quantity }} owned</span>
+              <span class="me-1"> {{ upgrade.quantity + upgrade.emoji }}>></span>
+              <span class="me-1"> {{ upgrade.quantity * upgrade.multiplier }} / 3s</span>
             </div>
           </div>
 
